@@ -1,0 +1,13 @@
+#version 300 es
+
+layout (location = 0) in vec4 inPosition;
+uniform mat3 uBackgroundMatrix;
+
+out vec2 vTexPosition;
+
+void main() {
+    vec3 pos = transpose(uBackgroundMatrix) * vec3(inPosition.xy, 1.0);
+    gl_Position = vec4(pos.xy / pos.z, 0.0, 1.0);
+    vTexPosition = inPosition.xy * 0.5 + 0.5;
+    vTexPosition.y = 1.0 - vTexPosition.y;
+}

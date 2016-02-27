@@ -1,0 +1,19 @@
+#version 300 es
+
+uniform sampler2D sTexturePosition;
+uniform sampler2D sTextureVelocity;
+
+in vec2 vTexPosition;
+
+out vec4 outFragColor;
+
+void main() {
+    outFragColor = texture(sTexturePosition, vTexPosition);
+    outFragColor += texture(sTextureVelocity, vTexPosition);
+    if (outFragColor.x > 1.0) outFragColor.x = -1.0;
+    if (outFragColor.x < -1.0) outFragColor.x = 1.0;
+    if (outFragColor.y > 1.0) outFragColor.y = -1.0;
+    if (outFragColor.y < -1.0) outFragColor.y = 1.0;
+    if (outFragColor.z > 1.0) outFragColor.z = -1.0;
+    if (outFragColor.z < -1.0) outFragColor.z = 1.0;
+}

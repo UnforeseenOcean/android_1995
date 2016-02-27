@@ -1,0 +1,11 @@
+#version 300 es
+
+uniform sampler2D sTextureBackground;
+
+in vec2 vTexPosition;
+
+out vec4 outFragColor;
+
+void main() {
+    outFragColor = texture(sTextureBackground, vTexPosition);
+}

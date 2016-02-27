@@ -1,0 +1,13 @@
+#version 300 es
+
+in vec3 vPosition;
+uniform float uParticleAlpha;
+
+out vec4 outFragColor;
+
+void main() {
+    float len = length(vPosition.xy);
+    float color = 1.0 - smoothstep(0.6, 0.8, len);
+    color *= vPosition.z;
+    outFragColor = vec4(color, color, color, color * uParticleAlpha * 0.8);
+}

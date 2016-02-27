@@ -1,0 +1,10 @@
+#version 300 es
+
+layout (location = 0) in vec4 inPosition;
+
+out vec2 vPosition;
+
+void main() {
+    gl_Position = inPosition;
+    vPosition = inPosition.xy;
+}

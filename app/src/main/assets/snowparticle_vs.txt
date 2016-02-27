@@ -1,0 +1,26 @@
+#version 300 es
+
+layout (location = 0) in vec4 inPosition;
+uniform sampler2D sTexturePosition;
+uniform sampler2D sTextureVelocity;
+uniform int uPositionY;
+uniform float uScaleY;
+
+out vec3 vPosition;
+
+void main() {
+    vec3 pos = texelFetch(sTexturePosition, ivec2(gl_InstanceID, uPositionY), 0).xyz;
+    vec3 vel = texelFetch(sTextureVelocity, ivec2(gl_InstanceID, uPositionY), 0).xyz;
+    float velLength = length(vel) * 50.0;
+    float velAngle = -atan(vel.y, vel.x);
+
+    mat2 rotateMat = mat2(cos(velAngle), -sin(velAngle), sin(velAngle), cos(velAngle));
+
+    gl_Position = vec4(inPosition.xy * 0.01, 0.0, 1.0);
+    gl_Position.x *= 1.0 + velLength;
+    gl_Position.xy = rotateMat * gl_Position.xy * (pos.z * 0.5 + 0.5);
+    gl_Position.xy += pos.xy;
+    gl_Position.y *= uScaleY;
+
+    vPosition = vec3(inPosition.xy, pos.z * 0.5 + 0.5);
+}

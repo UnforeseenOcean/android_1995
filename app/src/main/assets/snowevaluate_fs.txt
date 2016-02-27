@@ -1,0 +1,24 @@
+#version 300 es
+
+uniform sampler2D sTexturePosition;
+uniform sampler2D sTextureVelocity;
+uniform sampler2D sTextureNoise;
+in vec2 vTexPosition;
+
+out vec4 outFragColor;
+
+void main() {
+    vec3 pos = texture(sTexturePosition, vTexPosition).xyz;
+    vec3 vel = texture(sTextureVelocity, vTexPosition).xyz;
+    vec2 rand = texture(sTextureNoise, pos.xy * 0.5 + 0.5).xy * 0.001;
+    rand.x += 0.0001;
+    rand.y -= 0.00005;
+
+    vec2 velNew = vel.xy + rand;
+    velNew.x *= 0.99;
+    velNew.y *= 0.99;
+
+    outFragColor.xy = velNew;
+    outFragColor.z = vel.z;
+    outFragColor.w = 1.0;
+}

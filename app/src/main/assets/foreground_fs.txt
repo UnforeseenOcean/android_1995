@@ -1,0 +1,12 @@
+#version 300 es
+
+uniform float uBrightness;
+in vec2 vPosition;
+
+out vec4 outFragColor;
+
+void main() {
+    float len = length(vPosition);
+    float color = (1.25 - len) * uBrightness;
+    outFragColor = vec4(color, color, color, max(0.2, len - 0.5));
+}

@@ -1,0 +1,9 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@android:style/Theme.Material.NoActionBar.Overscan">
+        <!-- Customize your theme here. -->
+        <item name="android:background">#222</item>
+    </style>
+
+</resources>
